@@ -4,6 +4,7 @@ import { ITEM_DEFINITIONS } from '../models/items'
 import type { RelicType } from '../models/relics'
 import { RELIC_DEFINITIONS } from '../models/relics'
 import { rng } from '../models/rng'
+import { ITEM_IMAGES, RELIC_IMAGES, assetImg } from '../assets'
 
 interface ShopItem {
   kind: 'item' | 'relic' | 'heal'
@@ -99,11 +100,16 @@ export function renderShop(
       }
 
       const kindIcon = item.kind === 'item' ? '📦' : item.kind === 'relic' ? '💎' : '❤️'
+      const iconSrc = item.kind === 'item' && item.itemType
+        ? assetImg(ITEM_IMAGES[item.itemType], item.name, 24, kindIcon, 'vertical-align:middle;margin-right:4px')
+        : item.kind === 'relic' && item.relicType
+        ? assetImg(RELIC_IMAGES[item.relicType], item.name, 24, kindIcon, 'vertical-align:middle;margin-right:4px')
+        : kindIcon
 
       itemsHtml += `
         <div style="background:var(--bg-card);border:1px solid ${item.sold ? 'var(--gray)' : 'var(--gray)'};border-radius:8px;padding:16px;opacity:${item.sold ? '0.5' : '1'}">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <span style="font-size:14px">${kindIcon} ${item.name}</span>
+            <span style="font-size:14px">${iconSrc} ${item.name}</span>
             <span class="chips">${item.price} 筹码</span>
           </div>
           <div style="font-size:12px;color:var(--gray-light);margin-bottom:12px">${item.description}</div>
