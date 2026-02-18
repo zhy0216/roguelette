@@ -180,3 +180,13 @@ button.primary:hover {
   25% { transform: translateX(-5px); }
   75% { transform: translateX(5px); }
 }
+
+/* Screen backgrounds — shown when asset images exist */
+#screen-title { background: url('/assets/images/bg/title.png') center/cover no-repeat var(--bg); }
+#screen-map { background: url('/assets/images/bg/map.png') center/cover no-repeat var(--bg); }
+#screen-battle { background: url('/assets/images/bg/battle.png') center/cover no-repeat var(--bg); }
+#screen-shop { background: url('/assets/images/bg/shop.png') center/cover no-repeat var(--bg); }
+#screen-gamble { background: url('/assets/images/bg/gamble.png') center/cover no-repeat var(--bg); }
+#screen-rest { background: url('/assets/images/bg/rest.png') center/cover no-repeat var(--bg); }
+#screen-gameover { background: url('/assets/images/bg/gameover.png') center/cover no-repeat var(--bg); }
+#screen-victory { background: url('/assets/images/bg/victory.png') center/cover no-repeat var(--bg); }
