@@ -3,6 +3,7 @@ import type { ItemType } from '../models/items'
 import { ITEM_DEFINITIONS } from '../models/items'
 import type { RelicType } from '../models/relics'
 import { RELIC_DEFINITIONS } from '../models/relics'
+import { rng } from '../models/rng'
 
 interface ShopItem {
   kind: 'item' | 'relic' | 'heal'
@@ -19,7 +20,7 @@ function getRandomItem(): ItemType {
     'magnifying_glass', 'handsaw', 'beer', 'cigarette', 'handcuffs',
     'inverter', 'burner_phone', 'expired_medicine', 'adrenaline',
   ]
-  return allItems[Math.floor(Math.random() * allItems.length)]
+  return allItems[Math.floor(rng() * allItems.length)]
 }
 
 function getRandomRelic(): RelicType {
@@ -27,14 +28,14 @@ function getRandomRelic(): RelicType {
     'demons_eye', 'blood_pact', 'cursed_shell', 'black_handcuffs',
     'lucky_coin', 'soul_steal', 'hell_cigarettes', 'broken_lens',
   ]
-  return allRelics[Math.floor(Math.random() * allRelics.length)]
+  return allRelics[Math.floor(rng() * allRelics.length)]
 }
 
 function generateShopItems(): ShopItem[] {
   const items: ShopItem[] = []
 
   // 1-2 consumable items
-  const consumableCount = 1 + Math.floor(Math.random() * 2)
+  const consumableCount = 1 + Math.floor(rng() * 2)
   for (let i = 0; i < consumableCount; i++) {
     const itemType = getRandomItem()
     const def = ITEM_DEFINITIONS[itemType]
@@ -43,13 +44,13 @@ function generateShopItems(): ShopItem[] {
       itemType,
       name: def.name,
       description: def.description,
-      price: 1 + Math.floor(Math.random() * 3), // 1-3
+      price: 1 + Math.floor(rng() * 3), // 1-3
       sold: false,
     })
   }
 
   // 0-1 relic
-  if (Math.random() < 0.6) {
+  if (rng() < 0.6) {
     const relicType = getRandomRelic()
     const def = RELIC_DEFINITIONS[relicType]
     items.push({
@@ -57,7 +58,7 @@ function generateShopItems(): ShopItem[] {
       relicType,
       name: def.name,
       description: def.description,
-      price: 5 + Math.floor(Math.random() * 4), // 5-8
+      price: 5 + Math.floor(rng() * 4), // 5-8
       sold: false,
     })
   }

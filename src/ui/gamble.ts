@@ -1,4 +1,5 @@
 import type { RunState } from '../models/run'
+import { rng } from '../models/rng'
 
 export function renderGamble(
   container: HTMLElement,
@@ -31,8 +32,8 @@ export function renderGamble(
   runState.spendChips(entryCost)
 
   // Roll dice
-  const die1 = 1 + Math.floor(Math.random() * 6)
-  const die2 = 1 + Math.floor(Math.random() * 6)
+  const die1 = 1 + Math.floor(rng() * 6)
+  const die2 = 1 + Math.floor(rng() * 6)
   const sum = die1 + die2
   const won = sum > 7
 
