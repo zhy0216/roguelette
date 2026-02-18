@@ -32,6 +32,7 @@ export class BattleUI {
   private currentRevealed: 'live' | 'blank' | null = null
   private busy = false
   private playerLastAction: DealerAction | null = null
+  private extraItems: ItemType[] = []
 
   start(
     container: HTMLElement,
@@ -39,6 +40,7 @@ export class BattleUI {
     dealerType: DealerType,
     dealerHp: number,
     onComplete: (result: BattleResult) => void,
+    extraItems: ItemType[] = [],
   ): void {
     this.container = container
     this.runState = runState
@@ -46,6 +48,7 @@ export class BattleUI {
     this.onComplete = onComplete
     this.messageLog = []
     this.playerLastAction = null
+    this.extraItems = [...extraItems]
 
     this.battle = new Battle(runState.playerHp, dealerHp)
     this.loadNewRound()
@@ -61,6 +64,12 @@ export class BattleUI {
     const includeAdvanced = this.runState.currentLayer <= 5
     this.playerItems = distributeItems(includeAdvanced)
     this.dealerItems = distributeItems(includeAdvanced)
+
+    // Merge purchased items from shop (first round only)
+    if (this.extraItems.length > 0) {
+      this.playerItems.push(...this.extraItems)
+      this.extraItems = []
+    }
 
     // Relic: hell_cigarettes - extra cigarette
     if (this.runState.relics.has('hell_cigarettes')) {
