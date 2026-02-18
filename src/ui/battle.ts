@@ -6,6 +6,7 @@ import type { DealerType, DealerAction } from '../models/dealer'
 import { DEALERS, getDealerAction } from '../models/dealer'
 import { RELIC_DEFINITIONS } from '../models/relics'
 import type { RunState } from '../models/run'
+import { rng } from '../models/rng'
 
 export interface BattleResult {
   winner: 'player' | 'dealer'
@@ -56,8 +57,8 @@ export class BattleUI {
   }
 
   private loadNewRound(): void {
-    const liveCount = 2 + Math.floor(Math.random() * 3) // 2-4
-    const blankCount = 2 + Math.floor(Math.random() * 3) // 2-4
+    const liveCount = 2 + Math.floor(rng() * 3) // 2-4
+    const blankCount = 2 + Math.floor(rng() * 3) // 2-4
     this.chamber = new Chamber(liveCount, blankCount)
     this.battle.loadChamber(this.chamber)
 
@@ -299,7 +300,7 @@ export class BattleUI {
       case 'burner_phone': {
         if (this.chamber.totalRemaining > 1) {
           const maxIdx = this.chamber.totalRemaining - 1
-          const randIdx = 1 + Math.floor(Math.random() * maxIdx)
+          const randIdx = 1 + Math.floor(rng() * maxIdx)
           const peeked = this.chamber.peekAt(randIdx)
           this.revealedShells.push({ index: randIdx, type: peeked })
           this.addMessage(`你使用了${def.name} -> 第${randIdx + 1}发是${peeked === 'live' ? '实弹' : '空弹'}`)
@@ -309,7 +310,7 @@ export class BattleUI {
         break
       }
       case 'expired_medicine': {
-        if (Math.random() < 0.5) {
+        if (rng() < 0.5) {
           this.runState.heal(2)
           this.battle.playerHp = this.runState.playerHp
           this.addMessage(`你使用了${def.name} -> 幸运! 回复2HP`)
@@ -322,7 +323,7 @@ export class BattleUI {
       }
       case 'adrenaline': {
         if (this.dealerItems.length > 0) {
-          const stolenIdx = Math.floor(Math.random() * this.dealerItems.length)
+          const stolenIdx = Math.floor(rng() * this.dealerItems.length)
           const stolen = this.dealerItems.splice(stolenIdx, 1)[0]
           this.playerItems.push(stolen)
           const stolenDef = ITEM_DEFINITIONS[stolen]
@@ -572,7 +573,7 @@ export class BattleUI {
     let chipsEarned = 0
 
     if (winner === 'player') {
-      chipsEarned = 2 + Math.floor(Math.random() * 4) // 2-5
+      chipsEarned = 2 + Math.floor(rng() * 4) // 2-5
       this.runState.addChips(chipsEarned)
 
       // Relic: blood_pact - heal 1 on win

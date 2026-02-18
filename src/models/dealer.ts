@@ -1,3 +1,5 @@
+import { rng } from './rng'
+
 export type DealerType = 'degen' | 'coward' | 'maniac' | 'mimic' | 'paranoid'
 export type DealerAction = 'shoot_opponent' | 'shoot_self'
 
@@ -30,7 +32,7 @@ export function getDealerAction(
     case 'coward':
       return blankCount === 0 ? 'shoot_opponent' : 'shoot_self'
     case 'maniac':
-      return Math.random() < 0.5 ? 'shoot_opponent' : 'shoot_self'
+      return rng() < 0.5 ? 'shoot_opponent' : 'shoot_self'
     case 'mimic':
       return playerLastAction ?? 'shoot_opponent'
     case 'paranoid':

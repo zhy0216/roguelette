@@ -27,15 +27,17 @@ export const ITEM_DEFINITIONS: Record<ItemType, ItemDefinition> = {
   adrenaline: { name: '肾上腺素', description: '偷取对手一个道具', advanced: true },
 }
 
+import { rng } from './rng'
+
 const BASIC_ITEMS: ItemType[] = ['magnifying_glass', 'handsaw', 'beer', 'cigarette', 'handcuffs']
 const ADVANCED_ITEMS: ItemType[] = ['inverter', 'burner_phone', 'expired_medicine', 'adrenaline']
 
 export function distributeItems(includeAdvanced: boolean): ItemType[] {
   const pool = includeAdvanced ? [...BASIC_ITEMS, ...ADVANCED_ITEMS] : [...BASIC_ITEMS]
-  const count = 2 + Math.floor(Math.random() * 3) // 2-4
+  const count = 2 + Math.floor(rng() * 3) // 2-4
   const result: ItemType[] = []
   for (let i = 0; i < count; i++) {
-    result.push(pool[Math.floor(Math.random() * pool.length)])
+    result.push(pool[Math.floor(rng() * pool.length)])
   }
   return result
 }

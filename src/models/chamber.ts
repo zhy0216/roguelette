@@ -1,3 +1,5 @@
+import { rng } from './rng'
+
 export type Shell = 'live' | 'blank'
 
 export class Chamber {
@@ -55,7 +57,7 @@ export class Chamber {
 
   private shuffle(): void {
     for (let i = this.shells.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
+      const j = Math.floor(rng() * (i + 1))
       ;[this.shells[i], this.shells[j]] = [this.shells[j], this.shells[i]]
     }
   }

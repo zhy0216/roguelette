@@ -1,6 +1,7 @@
 import type { DealerType } from './dealer'
 import type { ItemType } from './items'
 import { RelicInventory } from './relics'
+import { rng } from './rng'
 
 export type NodeType = 'combat' | 'shop' | 'gamble' | 'rest'
 
@@ -36,7 +37,7 @@ export class RunState {
     const pool = [...ALL_NODE_TYPES]
     const result: NodeType[] = []
     for (let i = 0; i < 3; i++) {
-      const idx = Math.floor(Math.random() * pool.length)
+      const idx = Math.floor(rng() * pool.length)
       result.push(pool[idx])
     }
     return result
@@ -71,6 +72,6 @@ export class RunState {
     if (this.currentLayer === 5) return 'mimic'
     if (this.currentLayer === 1) return 'paranoid'
     const types: DealerType[] = ['degen', 'coward', 'maniac', 'mimic', 'paranoid']
-    return types[Math.floor(Math.random() * types.length)]
+    return types[Math.floor(rng() * types.length)]
   }
 }
