@@ -8,6 +8,7 @@ import { RELIC_DEFINITIONS } from '../models/relics'
 import type { RunState } from '../models/run'
 import { rng } from '../models/rng'
 import { DEALER_IMAGES, ITEM_IMAGES, assetImg } from '../assets'
+import { audio } from '../audio'
 
 export interface BattleResult {
   winner: 'player' | 'dealer'
@@ -58,6 +59,7 @@ export class BattleUI {
   }
 
   private loadNewRound(): void {
+    audio.playSFX('reload')
     const liveCount = 2 + Math.floor(rng() * 3) // 2-4
     const blankCount = 2 + Math.floor(rng() * 3) // 2-4
     this.chamber = new Chamber(liveCount, blankCount)
@@ -251,6 +253,7 @@ export class BattleUI {
 
     const item = this.playerItems[index]
     const def = ITEM_DEFINITIONS[item]
+    audio.playSFX('item_use')
     let consumed = true
 
     switch (item) {
@@ -380,6 +383,11 @@ export class BattleUI {
       }
     }
 
+    audio.playSFX(result.shell === 'live' ? 'gunshot' : 'blank_click')
+    if (result.shell === 'live' && result.damage > 0) {
+      audio.playSFX('hurt')
+    }
+
     // Sync HP back to runState
     this.runState.playerHp = this.battle.playerHp
 
@@ -455,6 +463,11 @@ export class BattleUI {
         } else {
           this.addMessage(`${dealer.name}射了自己 -> 空弹! 保留行动权`)
         }
+      }
+
+      audio.playSFX(result.shell === 'live' ? 'gunshot' : 'blank_click')
+      if (result.shell === 'live' && result.damage > 0) {
+        audio.playSFX('hurt')
       }
 
       // Sync HP
@@ -571,6 +584,7 @@ export class BattleUI {
 
   private finishBattle(): void {
     const winner = this.battle.winner!
+    audio.playSFX(winner === 'player' ? 'victory_sting' : 'death')
     let chipsEarned = 0
 
     if (winner === 'player') {

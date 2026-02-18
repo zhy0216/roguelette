@@ -1,5 +1,6 @@
 import type { RunState } from '../models/run'
 import { rng } from '../models/rng'
+import { audio } from '../audio'
 
 export function renderGamble(
   container: HTMLElement,
@@ -53,6 +54,7 @@ export function renderGamble(
 
   // Reveal after delay
   setTimeout(() => {
+    audio.playSFX('dice_roll')
     const diceNums = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅']
     const d1Char = diceNums[die1 - 1]
     const d2Char = diceNums[die2 - 1]
