@@ -8,14 +8,31 @@ import { renderGamble } from './ui/gamble'
 import { renderRest } from './ui/rest'
 import { renderGameOver } from './ui/gameover'
 import { renderVictory } from './ui/victory'
+import { audio } from './audio'
 
 // ---------------------------------------------------------------------------
 // Screen management
 // ---------------------------------------------------------------------------
 
+const SCREEN_BGM: Record<string, string> = {
+  'screen-title': 'title',
+  'screen-map': 'map',
+  'screen-battle': 'battle',
+  'screen-shop': 'shop',
+  'screen-gamble': 'map',
+  'screen-rest': 'map',
+  'screen-gameover': 'gameover',
+  'screen-victory': 'victory',
+}
+
 function showScreen(id: string): void {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'))
   document.getElementById(id)?.classList.add('active')
+
+  const track = SCREEN_BGM[id]
+  if (track) {
+    audio.playBGM(track)
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -25,13 +42,19 @@ function showScreen(id: string): void {
 function renderTitle(): void {
   const el = document.getElementById('screen-title')!
   el.innerHTML = `
-    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px">
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px;position:relative">
+      <button id="btn-mute" style="position:absolute;top:16px;right:16px;padding:8px 12px;font-size:12px;background:transparent;border:1px solid var(--gray)">${audio.muted ? '🔇' : '🔊'}</button>
       <h1>恶魔轮盘</h1>
       <p style="color:var(--gray);font-size:14px">地狱攀升</p>
       <button id="btn-start" class="primary" style="padding:16px 48px;font-size:16px">开始游戏</button>
     </div>
   `
+  document.getElementById('btn-mute')!.onclick = () => {
+    audio.toggleMute()
+    renderTitle()
+  }
   document.getElementById('btn-start')!.onclick = () => {
+    audio.unlock()
     startRun()
   }
 }
