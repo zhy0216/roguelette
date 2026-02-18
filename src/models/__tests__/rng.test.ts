@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { rng, seedRng, getSeed } from '../rng'
 
 describe('rng', () => {
@@ -35,8 +35,9 @@ describe('rng', () => {
     expect(getSeed()).toBe(123)
   })
 
-  it('getSeed returns null before seeding', () => {
-    seedRng(99)
-    expect(getSeed()).toBe(99)
+  it('getSeed returns null before seeding', async () => {
+    vi.resetModules()
+    const { getSeed: freshGetSeed } = await import('../rng')
+    expect(freshGetSeed()).toBeNull()
   })
 })
