@@ -1,4 +1,5 @@
 import type { DealerType } from './dealer'
+import type { ItemType } from './items'
 import { RelicInventory } from './relics'
 
 export type NodeType = 'combat' | 'shop' | 'gamble' | 'rest'
@@ -12,6 +13,7 @@ export class RunState {
   maxHp: number = 6
   chips: number = 0
   relics: RelicInventory = new RelicInventory()
+  purchasedItems: ItemType[] = []
 
   get isBossLayer(): boolean {
     return BOSS_LAYERS.includes(this.currentLayer)
