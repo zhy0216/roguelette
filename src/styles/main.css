@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #252525;
+  --red: #8b0000;
+  --red-bright: #ff2d55;
+  --gray: #555;
+  --gray-light: #888;
+  --white: #e0e0e0;
+  --gold: #c9a84c;
+  --green: #2d8b2d;
+  --blue: #4a9eff;
+  --font: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--white);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+#app {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  position: relative;
+}
+
+.screen {
+  display: none;
+  padding: 20px;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.screen.active {
+  display: flex;
+}
+
+h1 { font-size: 28px; color: var(--red-bright); text-align: center; }
+h2 { font-size: 20px; color: var(--white); margin-bottom: 12px; }
+h3 { font-size: 16px; color: var(--gray-light); margin-bottom: 8px; }
+
+button {
+  font-family: var(--font);
+  background: var(--bg-card);
+  color: var(--white);
+  border: 1px solid var(--gray);
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s;
+  border-radius: 4px;
+}
+
+button:hover {
+  border-color: var(--red-bright);
+  color: var(--red-bright);
+  background: var(--bg-card-hover);
+}
+
+button:active { transform: scale(0.97); }
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: var(--gray);
+  color: var(--gray);
+}
+
+button.primary {
+  background: var(--red);
+  border-color: var(--red-bright);
+  color: white;
+}
+
+button.primary:hover {
+  background: var(--red-bright);
+}
+
+.hp-bar {
+  height: 8px;
+  background: var(--bg-card);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--gray);
+}
+
+.hp-bar-fill {
+  height: 100%;
+  background: var(--red-bright);
+  transition: width 0.3s ease;
+}
+
+.hp-bar-fill.player { background: var(--green); }
+.hp-bar-fill.dealer { background: var(--red-bright); }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--gray);
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.card:hover {
+  border-color: var(--red-bright);
+  background: var(--bg-card-hover);
+}
+
+.shell {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 3px;
+}
+
+.shell.live { background: var(--red-bright); }
+.shell.blank { background: var(--gray); }
+.shell.unknown { background: var(--bg-card); border: 1px solid var(--gray); }
+
+.item-btn {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 4px;
+  font-size: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--white);
+  font-family: var(--font);
+  transition: all 0.15s;
+}
+
+.item-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.relic-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  margin: 2px;
+  font-size: 11px;
+  background: var(--bg-card);
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  color: var(--gold);
+}
+
+.chips { color: var(--gold); font-weight: bold; }
+
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.shake {
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { DealerType, getDealerAction } from '../dealer'
+import { getDealerAction } from '../dealer'
 
 describe('Dealer AI', () => {
   describe('Degen', () => {

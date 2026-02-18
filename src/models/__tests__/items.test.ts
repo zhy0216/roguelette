@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { ItemType, ITEM_DEFINITIONS, distributeItems } from '../items'
+import { type ItemType, ITEM_DEFINITIONS, distributeItems } from '../items'
 
 describe('Item definitions', () => {
   it('has all 5 basic items defined', () => {

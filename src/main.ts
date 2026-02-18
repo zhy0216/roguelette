@@ -1,24 +1,25 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import './styles/main.css'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
+function showScreen(id: string): void {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'))
+  document.getElementById(id)?.classList.add('active')
+}
+
+function renderTitle(): void {
+  const el = document.getElementById('screen-title')!
+  el.innerHTML = `
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:24px">
+      <h1>恶魔轮盘</h1>
+      <p style="color:var(--gray);font-size:14px">地狱攀升</p>
+      <button id="btn-start" class="primary" style="padding:16px 48px;font-size:16px">开始游戏</button>
     </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+  `
+  document.getElementById('btn-start')!.onclick = () => {
+    console.log('start game')
+  }
+}
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+renderTitle()
+showScreen('screen-title')
+
+export { showScreen }

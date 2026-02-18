@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { RunState, NodeType } from '../run'
+import { RunState } from '../run'
 
 describe('RunState', () => {
   it('starts at layer 7 with 4 HP and 0 chips', () => {

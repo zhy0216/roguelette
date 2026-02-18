@@ -1,4 +1,4 @@
-import { DealerType } from './dealer'
+import type { DealerType } from './dealer'
 import { RelicInventory } from './relics'
 
 export type NodeType = 'combat' | 'shop' | 'gamble' | 'rest'

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { RelicType, RELIC_DEFINITIONS, RelicInventory } from '../relics'
+import { RELIC_DEFINITIONS, RelicInventory } from '../relics'
 
 describe('RelicInventory', () => {
   it('starts empty', () => {
