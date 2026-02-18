@@ -7,6 +7,7 @@ import { DEALERS, getDealerAction } from '../models/dealer'
 import { RELIC_DEFINITIONS } from '../models/relics'
 import type { RunState } from '../models/run'
 import { rng } from '../models/rng'
+import { DEALER_IMAGES, ITEM_IMAGES, assetImg } from '../assets'
 
 export interface BattleResult {
   winner: 'player' | 'dealer'
@@ -126,7 +127,7 @@ export class BattleUI {
     this.playerItems.forEach((item, idx) => {
       const def = ITEM_DEFINITIONS[item]
       const disabled = this.busy || !isPlayerTurn ? 'disabled' : ''
-      itemsHtml += `<button class="item-btn" data-item-idx="${idx}" ${disabled} title="${def.description}">${def.name}</button>`
+      itemsHtml += `<button class="item-btn" data-item-idx="${idx}" ${disabled} title="${def.description}">${assetImg(ITEM_IMAGES[item], def.name, 20, def.name, 'vertical-align:middle;margin-right:4px')}</button>`
     })
 
     // Build relics display
@@ -152,7 +153,7 @@ export class BattleUI {
         <!-- Dealer HP -->
         <div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-            <span style="font-size:14px;color:var(--red-bright)">${dealer.name}</span>
+            <span style="font-size:14px;color:var(--red-bright);display:flex;align-items:center;gap:8px">${assetImg(DEALER_IMAGES[this.dealerType], dealer.name, 32, '', 'vertical-align:middle')}${dealer.name}</span>
             <span style="font-size:12px;color:var(--gray-light)">${this.battle.dealerHp} / ${maxDealerHp} HP</span>
           </div>
           <div class="hp-bar">
